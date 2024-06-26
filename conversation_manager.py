@@ -4,39 +4,47 @@ from speech_recognition_module import SpeechRecognition
 import time
 class ConversationManager:
     def __init__(self):
+        # Initialize the SpeechRecognition class
         self.sr = SpeechRecognition()
+        # Load the spaCy language model
         self.nlp = spacy.load("en_core_web_sm")
+        # Initialize the spaCy Matcher
         self.matcher = Matcher(self.nlp.vocab)
         
-        # Define patterns
+        # Define patterns for matching elective options (proper nouns)
         self.elective_pattern = [{"POS": "PROPN"}, {"POS": "PROPN"}]
+        # Define patterns for matching titles
         self.title_patterns = [
             [{"LOWER": {"IN": ["prof", "professor"]}}, {"IS_ALPHA": True}],
             [{"LOWER": {"IN": ["dr", "doctor"]}}, {"IS_ALPHA": True}],
             [{"LOWER": "m.sc"}, {"IS_ALPHA": True}]
         ]
-
+        # Add patterns to the matcher
         self.matcher.add("ELECTIVE_OPTION", [self.elective_pattern])
         for pattern in self.title_patterns:
             self.matcher.add("TITLE", [pattern])
 
     def extract_information(self, text, label_type=None, pattern_name=None):
+        # Process the text using spaCy
         doc = self.nlp(text)
         entities = []
+        # Extract named entities of the specified label type
         if label_type:
             entities = [ent.text for ent in doc.ents if ent.label_ == label_type]
+        # Extract patterns matched by the matcher
         if pattern_name:
             matches = self.matcher(doc)
             entities += [doc[start:end].text for match_id, start, end in matches if self.nlp.vocab.strings[match_id] == pattern_name]
         return entities
 
     def get_user_input(self, prompt):
+        # Prompt the user and get their input using speech recognition
         self.sr.speak(prompt)
         print(prompt)
         return self.sr.listen()
 
     def main(self):
-        # Initialize preferences dictionary
+        # Initialize preferences dictionary to store user preferences
         preferences = {
             "elective_options": [],
             "professor_names": [],
