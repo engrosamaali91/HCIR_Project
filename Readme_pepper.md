@@ -26,3 +26,10 @@ cd /HCIR_PROJECT-MAIN
 - Run the module using the command
 ```shell
 python3 pepperassistance.py
+```
+### Speech Recognition
+
+ - The speech Recognition class recognizes the speech 
+ - Features/Methods
+  - Text to speech
+  - Speech to text
