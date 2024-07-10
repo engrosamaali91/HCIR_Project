@@ -6,6 +6,10 @@
 Clone the repository
 
 ### Install dependencies either in conda environment or python virtual environment
+Download spacy language model
+```shell
+python -m spacy download en_core_web_md
+```
 Install the requirements using
 ```shell
 pip install -r requirements.txt
@@ -17,7 +21,7 @@ pip install -r requirements.txt
 
 ### Face Recognition
 - Make known_faces direcotory
-- Place a picture of yourself in the _known_faces_ directory with your name.
+- Place a picture of yourself in the "known_faces" directory with your name.
   For example, osama.jpg
 - In main directory
 ```shell

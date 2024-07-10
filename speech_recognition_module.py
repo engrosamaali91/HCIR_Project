@@ -8,22 +8,22 @@ class SpeechRecognition:
         # Initialize the recognizer from the speech_recognition library
         self.recogniser = sr.Recognizer()
 
-    def listen(self):
+    def listen(self, timeout=10):
         # Capture audio from the microphone
-        audio = self._listen_to_speech()
+        audio = self._listen_to_speech(timeout)
         # Convert the captured audio to text
         text = self._speech_to_text(audio)
         return text
 
-    def _listen_to_speech(self):
+    def _listen_to_speech(self, timeout):
         # Use the microphone as the audio source
         with sr.Microphone() as source:
             print("Using system default Microphone...")
             # Adjust the recognizer sensitivity to ambient noise
             self.recogniser.adjust_for_ambient_noise(source)
             # Listen for the first phrase and extract it into audio data
-            audio = self.recogniser.listen(source)
             print("Listening...")
+            audio = self.recogniser.listen(source, timeout=timeout)
             return audio
 
     def _speech_to_text(self, audio):
@@ -32,6 +32,7 @@ class SpeechRecognition:
         # Use Google's speech recognition to convert audio to text
         try:
             text = self.recogniser.recognize_google(audio)
+            print("Recognized text:", text)
         except sr.UnknownValueError:
             # If the speech was unintelligible
             print("Sorry, could not understand audio.")
