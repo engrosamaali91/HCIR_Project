@@ -152,6 +152,7 @@ class PepperAssistant:
                     self.pepper.setAngles("RElbowYaw", 1.0, 0.6)
 
                     greeting = f"Hello {self.detected_person}, welcome to our elective recommendation system. Let's get started with a few questions."
+                    print(greeting)
                     self._speak(greeting)
                     self.last_greeted_person = self.detected_person
 
@@ -184,14 +185,20 @@ class PepperAssistant:
             # Get recommendations
             recommendations = self.recommendation_system.recommend_electives(preferences)
 
-            # Format recommendations
+            # Format recommendations for speaking
+            recommendations_names = "Top elective recommendations based on your preferences are:\n"
+            for elective, _ in recommendations:
+                recommendations_names += f"{elective}\n"
+
+            # Initialize recommendations_text
             recommendations_text = "Top elective recommendations based on your preferences are:\n"
             for elective, probability in recommendations:
-                recommendations_text += f"{elective}: {probability:.4f}\n"
+                recommendations_text += f"{elective}: {probability*100:.2f}%\n"
 
             # Have Pepper speak the recommendations
-            self._speak(recommendations_text)
-            print(recommendations_text)  # For debugging purposes
+            self._speak(recommendations_names)
+            print(recommendations_text) 
+
 
             # Continue main loop for face detection and greeting
             while not self.stop_flag:
