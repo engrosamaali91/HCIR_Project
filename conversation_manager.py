@@ -17,12 +17,12 @@ class ConversationManager:
             'Location of University': ["Campus Sankt Augustin", "Campus Rheinbach"],
             'Department': ["Computer Science", "Electrical Engineering", "Mechanical Engineering"],
             'Type of Elective': ["Core", "Specialization", "Research", "Interdisciplinary"],
-            'Professor Names': ["Prof. Dr. Wolfgang Borutzky", "Prof. Dr. Alexander Asteroth", "Dr. Aleksandar Mitrevski", "Prof. Dr. Sebastian Houben", "Prof. Dr. Joern Hees", "Prof. Dr. Erwin Prassler", "Prof. Dr. Teena Hassan", "M.Sc. Tim Metzler", "M.Sc. Youssef Mahmoud Youssef", "Prof. Dr. Paul G. Plöger"],
+            'Professor Name': ["Prof. Dr. Erwin Prassler", "Dr. Aleksandar Mitrevski", "Prof. Dr. Sebastian Houben", "Prof. Dr. Paul G. Plöger", "Prof. Dr. Teena Hassan", "M.Sc. Tim Metzler"],
             'Term Offered': ["Summer Semester", "Winter Semester"],
-            'Student Preferences': ["AI", "Robotics", "Data Science", "Sustainable Energy"],
+            'Difficulty Level': ["Beginner", "Intermediate", "Advanced", "Expert"],
+            'Preferred Branch': ["AI", "Robotics", "Data Science", "Sustainable Energy"],
             'Preferred Learning Mode': ["Lecture", "Lab", "Seminar", "Workshop"]
         }
-
 
     def get_user_input(self, prompt, options):
         # Prompt the user and get their input using speech recognition
@@ -59,7 +59,8 @@ class ConversationManager:
             "Type of Elective": "",
             "Professor Names": "",
             "Term Offered": "",
-            "Student Preferences": "",
+            "Difficulty Level": "",
+            "Preferred Branch": "",
             "Preferred Learning Mode": ""
         }
 
